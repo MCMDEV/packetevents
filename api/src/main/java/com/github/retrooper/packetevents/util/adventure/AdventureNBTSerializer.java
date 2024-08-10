@@ -374,7 +374,7 @@ public class AdventureNBTSerializer implements ComponentSerializer<Component, Co
                 NBTReader child = hoverEvent.child("contents");
                 style.hoverEvent(HoverEvent.showEntity(
                         child.readUTF("type", Key::key),
-                        child.readIntArray("id", this::deserializeUUID),
+                        child.readLongArray("id", this::deserializeUUID),
                         child.read("name", this::deserialize)
                 ));
             }
