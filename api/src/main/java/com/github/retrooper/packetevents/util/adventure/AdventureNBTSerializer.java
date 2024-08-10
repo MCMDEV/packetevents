@@ -458,7 +458,7 @@ public class AdventureNBTSerializer implements ComponentSerializer<Component, Co
                     HoverEvent.ShowEntity showEntity = (HoverEvent.ShowEntity) hoverEvent.value();
                     NBTWriter entity = child.child("contents");
                     entity.writeUTF("type", showEntity.type().asString());
-                    entity.writeIntArray("id", this.serializeUUID(showEntity.id()));
+                    entity.writeLongArray("id", this.serializeUUID(showEntity.id()));
                     if (showEntity.name() != null) entity.write("name", this.serialize(showEntity.name()));
                     break;
                 }
@@ -497,7 +497,7 @@ public class AdventureNBTSerializer implements ComponentSerializer<Component, Co
     // -------------------------------------------------
 
     // ---------------------- UUID ----------------------
-    private @NotNull UUID deserializeUUID(int[] value) {
+    private @NotNull UUID deserializeUUID(long[] value) {
         if (value.length != 4) {
             throw new IllegalStateException("Invalid encoded uuid length: " + value.length + " != 4");
         }
@@ -507,12 +507,12 @@ public class AdventureNBTSerializer implements ComponentSerializer<Component, Co
         );
     }
 
-    private int @NotNull [] serializeUUID(UUID value) {
-        return new int[]{
-                (int) (value.getMostSignificantBits() >> 32),
-                (int) value.getMostSignificantBits(),
-                (int) (value.getLeastSignificantBits() >> 32),
-                (int) value.getLeastSignificantBits()
+    private long @NotNull [] serializeUUID(UUID value) {
+        return new long[]{
+                (long) (value.getMostSignificantBits() >> 32),
+                (long) value.getMostSignificantBits(),
+                (long) (value.getLeastSignificantBits() >> 32),
+                (long) value.getLeastSignificantBits()
         };
     }
     // -------------------------------------------------
